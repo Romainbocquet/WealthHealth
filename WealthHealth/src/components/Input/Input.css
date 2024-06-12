@@ -1,0 +1,17 @@
+input {
+  border: 1px solid brown;
+  border-radius: 5px;
+}
+
+fieldset.address {
+  margin-top: 40px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+legend {
+  font-size: 18px;
+  color: brown;
+  padding: 0px 10px;
+}

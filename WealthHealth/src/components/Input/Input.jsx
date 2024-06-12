@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './Input.css';
 
 const Input = ({ type, id, label }) => {
   const [value, setValue] = useState('');

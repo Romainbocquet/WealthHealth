@@ -1,0 +1,10 @@
+.current-employee {
+  margin: 50px 50px;
+}
+
+.current-employee h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: brown;
+  margin-bottom: 40px;
+}

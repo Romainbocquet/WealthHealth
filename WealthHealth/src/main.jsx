@@ -8,6 +8,7 @@ import Root from "./routes/root";
 import ErrorPage from "./pages/errorPage/ErrorPage";
 import AddEmployees from "./pages/AddEmployees/AddEmployees";
 import CurrentEmployees from "./pages/CurrentEmployees/CurrentEmployees";
+import 'oc-component-ui-rb/style.css'
 
 const router = createBrowserRouter([
   {

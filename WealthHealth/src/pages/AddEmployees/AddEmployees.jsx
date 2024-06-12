@@ -1,34 +1,37 @@
 import './AddEmployees.css';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Input from '../../components/Input/Input';
-import Popin from "../../components/Popin/Popin";
+import { Modal } from "oc-component-ui-rb";
+import { Button } from "oc-component-ui-rb";
+import { useAtom } from 'jotai';
+import { employeesAtom } from '../../Atom/employeesAtom';
 
 function AddEmployees() {
-
-  const popinRef = useRef(null);
-
+  const [open, setOpen] = useState(false)
+  const [employees, setEmployees] = useAtom(employeesAtom);
+  const [popinText, setPopinText] = useState('Employé ajouté');
+  
   const handleButtonClick = (event) => {
     event.preventDefault();
   
-    const firstNameInput = document.getElementById('username');
-    const lastNameInput = document.getElementById('lastname');
-    const dateOfBirthInput = document.getElementById('dateofbirth');
-    const startDateInput = document.getElementById('startdate');
-    const streetInput = document.getElementById('street');
-    const cityInput = document.getElementById('city');
-    const zipCodeInput = document.getElementById('zip-code');
-    const departmentInput = document.getElementById('department');
+    let firstNameInput = document.getElementById('username');
+    let lastNameInput = document.getElementById('lastname');
+    let dateOfBirthInput = document.getElementById('dateofbirth');
+    let startDateInput = document.getElementById('startdate');
+    let streetInput = document.getElementById('street');
+    let cityInput = document.getElementById('city');
+    let zipCodeInput = document.getElementById('zip-code');
+    let departmentInput = document.getElementById('department');
   
-    const firstName = firstNameInput.value;
-    const lastName = lastNameInput.value;
-    const dateOfBirth = dateOfBirthInput.value;
-    const startDate = startDateInput.value;
-    const street = streetInput.value;
-    const city = cityInput.value;
-    const zipCode = zipCodeInput.value;
-    const department = departmentInput.value;
+    let firstName = firstNameInput.value;
+    let lastName = lastNameInput.value;
+    let dateOfBirth = dateOfBirthInput.value;
+    let startDate = startDateInput.value;
+    let street = streetInput.value;
+    let city = cityInput.value;
+    let zipCode = zipCodeInput.value;
+    let department = departmentInput.value;
   
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
     const employee = {
       firstName,
       lastName,
@@ -40,8 +43,13 @@ function AddEmployees() {
       zipCode
     };
   
-    employees.push(employee);
-    localStorage.setItem('employees', JSON.stringify(employees));
+    if (!firstName || !lastName || !dateOfBirth || !startDate || !street || !city || !zipCode || !department) {
+      setPopinText('Tous les champs doivent être remplis');
+      setOpen(true);
+      return;
+    }
+  
+    setEmployees([...employees, employee]);
   
     firstNameInput.value = '';
     lastNameInput.value = '';
@@ -51,14 +59,15 @@ function AddEmployees() {
     cityInput.value = '';
     zipCodeInput.value = '';
     departmentInput.value = 'Sales';
-  
-    popinRef.current.showPopin();
-  }; 
+
+    setPopinText('Employé ajouté');
+    setOpen(true);
+  };  
 
   return (
     <div className='create-employee'>
       <h2>Create Employee</h2>
-      <form id="create-employee" onSubmit={handleButtonClick}>
+      <form id="create-employee">
       <Input
         type="text"
         id="username"
@@ -108,14 +117,15 @@ function AddEmployees() {
         <option>Human Resources</option>
         <option>Legal</option>
       </select>
-      <button type="submit">Save</button>
-    </form>
       <div>
-        <Popin ref={popinRef}>
-          <h1>Employee Created!</h1>
-        </Popin>
+        <Button type='submit'onClick={handleButtonClick}>Save</Button>
       </div>
-     
+    </form>
+    <Modal open={open} onClose={() => setOpen(false)} id="add-employee">
+        <div id='modal-contain'>
+          <h3 id='add-employee-popoin-text'>{popinText}</h3>
+        </div>
+    </Modal>
     </div>
   )
 }
