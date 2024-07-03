@@ -2,21 +2,20 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 
 function Header() {
-
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/add-employees">Create Employee</Link>
+      <nav className="navbar">
+        <ul className="nav-list">
+          <li className="nav-item">
+            <Link to="/add-employees" className="nav-link">Create Employee</Link>
           </li>
-          <li>
-            <Link to="/view-employees">view Employee</Link>
+          <li className="nav-item">
+            <Link to="/view-employees" className="nav-link">View Employee</Link>
           </li>
         </ul>
       </nav>
     </>
-  )
+  );
 }
 
-export default Header
+export default Header;
